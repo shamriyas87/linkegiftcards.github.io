@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="LIKE E-Gift Cards - Buy Gift Vouchers online for Birthdays, Weddings & More from popular brands. Low Prices, Best Deals, Great Offers." />
+  <meta name="keywords" content="gift cards, e-gift cards, vouchers, online gifts, LIKE" />
+  <title>LIKE — Gift Card Creator & Redemption</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('create')">Create Gift Card</button>
+      <button class="tab" onclick="switchTab('redeem')">Redeem Gift Card</button>
+    </div>
+
+    <!-- CREATE GIFT CARD TAB -->
+    <div id="createTab" class="tab-content active">
+      <div class="app">
+        <header>
+          <div class="logo"><img src="https://turquoise-reasonable-penguin-388.mypinata.cloud/ipfs/bafkreiconcyyp3447jlcrmsmil6w3punwvyvoxqkzqh76uq22u5ms34amq" alt="LIKE logo" /></div>
+          <div>
+            <h1>LIKE❤️ E-Gift Cards</h1>
+            <p class="lead">Buy Gift Vouchers online for Birthdays, Weddings & More from popular brands. Low Prices, Best Deals, Great Offers, Huge Selection.</p>
+          </div>
+        </header>
+
+        <section class="controls">
+          <label>Recipient name</label>
+          <input id="recipient" type="text" placeholder="Recipient name (optional)" />
+
+          <div class="row">
+            <div>
+              <label>Recipient Email</label>
+              <input id="recipientEmail" type="email" placeholder="recipient@example.com (optional)" />
+            </div>
+            <div>
+              <label>Your Email *</label>
+              <input id="senderEmail" type="email" placeholder="your@example.com" required />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Amount</label>
+              <input id="amount" type="number" min="1" value="50" />
+            </div>
+            <div>
+              <label>Currency</label>
+              <select id="currency">
+                <option value="﷼ ">SAR ﷼</option>
+                <option value="$ ">USD $</option>
+                <option value="€ ">EUR €</option>
+                <option value="د.إ ">AED د.إ</option>
+                <option value="₹ " selected>INR ₹</option>
+              </select>
+            </div>
+          </div>
+
+          <label>Personal message</label>
+          <textarea id="message" placeholder="Add a short message (optional)"></textarea>
+
+          <label>Denomination type</label>
+          <select id="denomType">
+            <option value="fixed">Fixed (single use)</option>
+            <option value="multi">Multi-use / Balance</option>
+          </select>
+
+          <div style="display:flex;gap:10px;align-items:center;margin-top:12px">
+            <button class="btn" id="generateBtn">Generate Gift Card</button>
+            <button class="btn secondary" id="resetBtn">Reset</button>
+          </div>
+
+          <div style="margin-top:12px">
+            <label class="small">E-Gift card Code</label>
+            <input id="code" type="text" readonly placeholder="Generated code will appear here" />
+          </div>
+
+          <div id="successMsg" class="success-msg">✓ Code copied to clipboard!</div>
+          <div id="errorMsg" class="error-msg">✗ Please fix the errors above</div>
+
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn" id="copyBtn">Copy Code</button>
+            <button class="btn" id="downloadBtn">Download PNG</button>
+            <button class="btn" id="emailBtn">Send via Email</button>
+          </div>
+
+        </section>
+
+        <aside class="preview">
+          <div style="width:100%;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div class="muted">Preview</div>
+              <div style="font-weight:700">Digital + Printable</div>
+            </div>
+            <div class="small">Website: <strong>LIKE</strong></div>
+          </div>
+
+          <div id="cardArea" class="card-mock" role="img" aria-label="Gift card preview">
+            <div class="card-top">
+              <div class="card-brand">
+                <img id="logoPreview" src="https://turquoise-reasonable-penguin-388.mypinata.cloud/ipfs/bafkreiconcyyp3447jlcrmsmil6w3punwvyvoxqkzqh76uq22u5ms34amq" alt="LIKE logo" />
+                <div>
+                  <div style="font-size:14px;font-weight:700">LIKE</div>
+                  <div class="muted small">Gift Card</div>
+                </div>
+              </div>
+              <div class="card-value"><span id="currencyPreview">₹</span><span id="amountPreview">50</span></div>
+            </div>
+            <div style="margin-top:18px;color:rgba(255,255,255,0.9)" id="messagePreview">A special gift for you!</div>
+            <div class="card-code" id="codePreview">LIKE-XXXX-XXXX</div>
+          </div>
+
+          <canvas id="exportCanvas" width="900" height="500" style="display:none"></canvas>
+
+          <div style="width:100%;display:flex;gap:8px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+            <button class="btn secondary" id="saveTemplate">Save Template</button>
+            <button class="btn secondary" id="loadTemplate">Load Template</button>
+          </div>
+
+          <div style="font-size:12px;color:var(--muted);margin-top:8px;text-align:center">Tip: Use the Download PNG button to save a printable image of the gift card for better convenience.</div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- REDEEM GIFT CARD TAB -->
+    <div id="redeemTab" class="tab-content">
+      <div class="redeem-section">
+        <header style="display:block">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+            <div class="logo"><img src="https://turquoise-reasonable-penguin-388.mypinata.cloud/ipfs/bafkreiconcyyp3447jlcrmsmil6w3punwvyvoxqkzqh76uq22u5ms34amq" alt="LIKE logo" /></div>
+            <div>
+              <h2>Redeem Your Gift Card</h2>
+              <p class="lead">Enter your gift card code to redeem and withdraw funds to your preferred payment method.</p>
+            </div>
+          </div>
+        </header>
+
+        <div class="info-box">
+          <h3>How to Redeem</h3>
+          <p class="small">1. Enter your gift card code below<br>2. Verify the amount<br>3. Choose your withdrawal method (Bank or Crypto)<br>4. Submit your redemption request</p>
+        </div>
+
+        <div class="controls">
+          <label>Gift Card Code *</label>
+          <input id="redeemCode" type="text" placeholder="LIKE-XXXX-XXXX-XXXX" />
+
+          <button class="btn full" id="verifyBtn">Verify Gift Card</button>
+
+          <div id="redeemSuccessMsg" class="success-msg">✓ Gift card verified!</div>
+          <div id="redeemErrorMsg" class="error-msg">✗ Invalid gift card code</div>
+
+          <div id="redeemDetails" class="redeem-result">
+            <h3 style="margin:0 0 12px 0">Gift Card Details</h3>
+            <div style="display:grid;gap:8px">
+              <div style="display:flex;justify-content:space-between">
+                <span class="muted">Card Code:</span>
+                <strong id="verifiedCode">-</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between">
+                <span class="muted">Amount:</span>
+                <strong id="verifiedAmount">-</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between">
+                <span class="muted">Currency:</span>
+                <strong id="verifiedCurrency">-</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between">
+                <span class="muted">Status:</span>
+                <strong style="color:#00c853" id="verifiedStatus">Active</strong>
+              </div>
+            </div>
+
+            <label style="margin-top:20px">Withdrawal Method *</label>
+            <select id="withdrawalMethod" onchange="showPaymentOptions()">
+              <option value="">-- Select Method --</option>
+              <option value="bank">Bank Transfer</option>
+              <option value="crypto">Cryptocurrency</option>
+            </select>
+
+            <!-- BANK TRANSFER OPTIONS -->
+            <div id="bankOptions" class="payment-details">
+              <label>Select Your Bank *</label>
+              <select id="bankSelect" onchange="updateBankList()">
+                <option value="">-- Select Currency First --</option>
+              </select>
+
+              <label>Account Holder Name *</label>
+              <input id="accountName" type="text" placeholder="Full name as per bank account" />
+
+              <label>Account Number / IBAN *</label>
+              <input id="accountNumber" type="text" placeholder="Enter your account number" />
+
+              <label>Swift/BIC Code (if international)</label>
+              <input id="swiftCode" type="text" placeholder="Optional for international transfers" />
+            </div>
+
+            <!-- CRYPTO OPTIONS -->
+            <div id="cryptoOptions" class="payment-details">
+              <label>Crypto Network *</label>
+              <select id="cryptoNetwork">
+                <option value="">-- Select Network --</option>
+                <option value="usdt-bep20">USDT (BEP20 - Binance Smart Chain)</option>
+                <option value="usdt-trc20">USDT (TRC20 - Tron)</option>
+              </select>
+
+              <label>Wallet Address *</label>
+              <input id="walletAddress" type="text" placeholder="Enter your wallet address" />
+
+              <div style="background:rgba(255,59,48,0.1);border:1px solid rgba(255,59,48,0.3);padding:12px;border-radius:8px;margin-top:8px">
+                <p class="small" style="margin:0;color:#ff3b30">⚠️ Warning: Double-check your wallet address. Cryptocurrency transactions are irreversible!</p>
+              </div>
+            </div>
+
+            <label style="margin-top:16px">Email for Confirmation *</label>
+            <input id="redeemEmail" type="email" placeholder="your@example.com" />
+
+            <button class="btn full" id="submitRedeemBtn">Submit Redemption Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>Built with ❤️ for LIKE — We simplify your needs.</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
